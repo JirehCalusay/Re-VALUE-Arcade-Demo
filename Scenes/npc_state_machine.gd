@@ -38,3 +38,15 @@ func transition_to(new_state: String):
 	current_state = states[new_state]
 	state_name = new_state
 	current_state.enter()
+
+# Forces a state transition even if already in that state — re-runs exit+enter.
+func force_transition_to(new_state: String):
+	new_state = new_state.to_lower()
+	if not states.has(new_state):
+		return
+
+	if current_state:
+		current_state.exit()
+	current_state = states[new_state]
+	state_name = new_state
+	current_state.enter()

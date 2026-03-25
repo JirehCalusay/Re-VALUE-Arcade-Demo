@@ -51,4 +51,7 @@ static func attack_capture() -> bool:
 	
 static func release() -> bool:
 	return Input.is_action_just_pressed("release")  # E key
+
+static func turnover() -> bool:
+	return Input.is_action_just_pressed("turnover")  # Q key
 	

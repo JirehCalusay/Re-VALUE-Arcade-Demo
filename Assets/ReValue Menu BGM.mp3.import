@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cddqr3mu131ic"
+path="res://.godot/imported/ReValue Menu BGM.mp3-5dedc9da3fbdb071089f4b0eccf4756d.mp3str"
+
+[deps]
+
+source_file="res://Assets/ReValue Menu BGM.mp3"
+dest_files=["res://.godot/imported/ReValue Menu BGM.mp3-5dedc9da3fbdb071089f4b0eccf4756d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

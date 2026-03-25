@@ -48,6 +48,9 @@ func on_physics_process(_delta : float):
 	
 	if GameInputEvents.attack_capture():
 		transition.emit("Attack", { "attack_type": "capture" })
+
+	if GameInputEvents.release():
+		GameData.release_last()
 		
 func enter():
 	animated_sprite_2D.play("idle")

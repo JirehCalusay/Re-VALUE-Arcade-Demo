@@ -63,6 +63,9 @@ func on_physics_process(_delta : float):
 		state_machine.CURRENT_JUMP_COUNT = 0
 		transition.emit("Idle")
 
+	if GameInputEvents.release():
+		GameData.release_last()
+
 func enter():
 	animation_helper.play_transition("jump2fall")
 

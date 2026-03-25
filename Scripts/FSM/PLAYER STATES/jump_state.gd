@@ -66,6 +66,9 @@ func on_physics_process(_delta : float):
 	if character_body_2D.velocity.y > 0:
 		transition.emit("Fall")
 
+	if GameInputEvents.release():
+		GameData.release_last()
+
 func enter():
 	animated_sprite_2D.play("jump")
 

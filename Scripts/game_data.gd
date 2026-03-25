@@ -12,6 +12,11 @@ var captured_enemies: Array = []   # stores dictionaries {value, hp}
 signal target_changed(new_target: int, equation: String)
 signal inventory_changed()
 signal spawn_enemy(value: int, position: Vector2)  # listened to by the level to spawn the enemy node
+signal turnover_success(score_bonus: int)  # emitted when a correct turnover happens
+
+# ── Turnover ──────────────────────────────────────────────────
+var turnover_count: int = 0
+var difficulty_tier: int = 0  # 0–3, updated on each turnover
 
 # ── Merge Rules (how many of X combine into Y) ────────────────
 const MERGE_RULES: Array = [
@@ -34,6 +39,7 @@ func try_capture(enemy_value: int, enemy_hp: float) -> bool:
 		"hp":    enemy_hp
 	})
 	print("Captured Value: ", enemy_value, " | Slots: ", captured_enemies.size(), "/", MAX_SLOTS)
+	_sort_inventory()
 	inventory_changed.emit()
 
 	_check_merge()
@@ -62,6 +68,7 @@ func _check_merge() -> void:
 				captured_enemies.remove_at(i)
 
 			print("Merged ", needed_count, "×", from_value, " → spawning ", into_value)
+			_sort_inventory()
 			inventory_changed.emit()
 			_spawn_near_player(into_value)
 			return  # only one merge per capture
@@ -81,6 +88,47 @@ func _spawn_near_player(value: int) -> void:
 		push_warning("GlobalCapture: player_ref not set — spawning at origin")
 
 	spawn_enemy.emit(value, spawn_pos)
+
+# ── Release ───────────────────────────────────────────────────
+func release_last() -> bool:
+	if captured_enemies.is_empty():
+		print("Nothing to release")
+		return false
+
+	var entry = captured_enemies.pop_back()
+	print("Released Value: ", entry["value"], " | Slots: ", captured_enemies.size(), "/", MAX_SLOTS)
+	_sort_inventory()
+	inventory_changed.emit()
+	_spawn_near_player(entry["value"])
+	return true
+
+# ── Turnover ──────────────────────────────────────────────────
+func try_turnover(time_remaining: float) -> bool:
+	if captured_enemies.is_empty():
+		print("Turnover failed — inventory empty")
+		return false
+
+	var total: int = 0
+	for entry in captured_enemies:
+		total += entry["value"]
+
+	print("Turnover attempt — total: ", total, " | target: ", global_target_value)
+
+	if total != global_target_value:
+		print("Turnover failed — value mismatch")
+		return false
+
+	# Success
+	turnover_count += 1
+	var bonus: int = int(time_remaining)
+	print("Turnover success #", turnover_count, " | Score bonus: ", bonus)
+	clear_inventory()
+	turnover_success.emit(bonus)
+	return true
+
+# ── Sort ──────────────────────────────────────────────────────
+func _sort_inventory() -> void:
+	captured_enemies.sort_custom(func(a, b): return a["value"] > b["value"])
 
 # ── Utility ───────────────────────────────────────────────────
 func clear_inventory() -> void:

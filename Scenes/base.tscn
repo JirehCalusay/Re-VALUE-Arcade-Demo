@@ -17,6 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://bfcqglqo042a5" path="res://Scenes/falimer.tscn" id="10_du40w"]
 [ext_resource type="PackedScene" uid="uid://dgvcujkkqgkk5" path="res://Scenes/dummy_enemy.tscn" id="11_omojh"]
 [ext_resource type="AudioStream" uid="uid://bwi1rejhwhukg" path="res://Assets/ReValue BGM.ogg" id="17_yv4wf"]
+[ext_resource type="PackedScene" uid="uid://bpause3vxax1c" path="res://Scenes/pause_menu.tscn" id="98_pause"]
+[ext_resource type="PackedScene" uid="uid://c5u4v6ndtmdj" path="res://Scenes/game_over.tscn" id="99_gameover"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jlfiv"]
 size = Vector2(279.5, 64)
@@ -326,7 +328,7 @@ script = ExtResource("1_1w1q6")
 
 [node name="UI" parent="." unique_id=1334307813 instance=ExtResource("2_1dbbu")]
 
-[node name="LevelManager" type="Node" parent="." unique_id=1741530086]
+[node name="LevelManager" type="Node" parent="." unique_id=1741530086 groups=["LevelManager"]]
 script = ExtResource("3_yv4wf")
 
 [node name="PatrolZones" type="Node" parent="." unique_id=1994333289 groups=["DummyEnemy", "PatrolZoneManager"]]
@@ -537,8 +539,6 @@ script = ExtResource("2_yoopj")
 enemy_scenes = Array[PackedScene]([ExtResource("11_omojh")])
 spawn_points = NodePath("../SpawnPoints")
 enemies_container = NodePath("../EnemyContainer")
-base_enemies_per_wave = 3
-enemies_increase_per_wave = 2
 
 [node name="SpawnPoints" type="Node" parent="." unique_id=661955494]
 
@@ -756,4 +756,9 @@ collision_layer = 2
 [node name="BGM_player" type="AudioStreamPlayer" parent="." unique_id=202373504]
 stream = ExtResource("17_yv4wf")
 volume_db = -6.0
+autoplay = true
 parameters/looping = true
+
+[node name="GameOver" parent="." unique_id=72131195 instance=ExtResource("99_gameover")]
+
+[node name="PauseMenu" parent="." unique_id=1068875900 instance=ExtResource("98_pause")]

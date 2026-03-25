@@ -3,12 +3,16 @@ extends CanvasLayer
 @onready var timer_label: Label = $TopBar/TimerDisplay/TimerLabel
 @onready var equation_label: Label = $EquationDisplay/EquationLabel
 @onready var icon_container: HBoxContainer = $CaptureBar/SlotWrapper/IconContainer
+@onready var score_label: Label = $TopBar/ScoreDisplay/ScoreLabel
+@onready var difficulty_label: Label = $DifficultyDisplay/DifficultyLabel
 @onready var slot_graphic: TextureRect = $CaptureBar/SlotWrapper/SlotGraphic
 
 @export var dummy_icon: Texture2D
 @export var font: Font
 
 const MAX_SLOTS = 10
+
+var score: int = 0
 
 # each entry is { label: Label, icon: TextureRect }
 var slot_nodes: Array = []
@@ -33,6 +37,9 @@ func _align_icon_container() -> void:
 func _apply_font() -> void:
 	timer_label.add_theme_font_override("font", font)
 	equation_label.add_theme_font_override("font", font)
+	score_label.add_theme_font_override("font", font)
+	score_label.text = "Score: %02d" % score
+	difficulty_label.add_theme_font_override("font", font)
 
 # ── Build Slots ───────────────────────────────────────────────
 func _build_slots() -> void:
@@ -75,6 +82,23 @@ func _connect_signals() -> void:
 
 func _on_inventory_changed() -> void:
 	update_slots(GameData.captured_enemies)
+
+# ── Score ────────────────────────────────────────────────────
+func add_score(amount: int) -> void:
+	score += amount
+	score_label.text = "Score: %02d" % score
+
+# ── Difficulty ───────────────────────────────────────────────
+const DIFFICULTY_LABELS: Array = [
+	"Piece of Cake",
+	"Getting Spicy",
+	"Bananas",
+	"Total Chaos"
+]
+
+func update_difficulty(turnover_count: int) -> void:
+	var tier: int = mini(turnover_count / 10, DIFFICULTY_LABELS.size() - 1)
+	difficulty_label.text = DIFFICULTY_LABELS[tier]
 
 # ── Timer ─────────────────────────────────────────────────────
 func update_timer(seconds: float) -> void:

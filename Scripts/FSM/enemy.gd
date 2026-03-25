@@ -10,6 +10,7 @@ const HIT_RESET_TIME: float = 5.0
 
 # ── Spawn ─────────────────────────────────────────────────────
 var spawn_immobilized: bool = false              # ← moved up here
+var was_captured: bool = false
 var spawn_knockback_direction: Vector2 = Vector2.ZERO
 var spawn_knockback_force: Vector2 = Vector2.ZERO
 
@@ -95,12 +96,13 @@ func calculate_damage() -> float:
 	hit_count += 1
 	_hit_reset_timer = HIT_RESET_TIME
 
-	# 5% base, increases by 0.5% per hit
-	# hit 1 = 5%, hit 2 = 5.5%, hit 3 = 6% etc.
-	var damage_percent = 0.05 + (hit_count - 1) * 0.005
+	# 5% base, increases by 0.5% per hit, plus 5% per difficulty tier
+	# tier 0: 5% base | tier 1: 10% base | tier 2: 15% base | tier 3: 20% base
+	var tier_bonus: float = GameData.difficulty_tier * 0.05
+	var damage_percent = 0.05 + tier_bonus + (hit_count - 1) * 0.005
 	var damage = max_hp * damage_percent
 
-	print("Hit: ", hit_count, " | Damage%: ", damage_percent * 100, "% | Damage: ", damage)
+	print("Hit: ", hit_count, " | Tier: ", GameData.difficulty_tier, " | Damage%: ", damage_percent * 100, "% | Damage: ", damage)
 	return damage
 
 # ── Hurt ─────────────────────────────────────────────────────
@@ -134,6 +136,7 @@ func _on_hurt_box_died() -> void:
 	queue_free()
 	
 func _on_hurt_box_captured(_hit_source: Vector2) -> void:
+	was_captured = true
 	GameData.register_capture_candidate(self)
 
 # ── Split Logic ──────────────────────────────────────────────

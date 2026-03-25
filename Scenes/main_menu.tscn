@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://c8mplx4vw2g3a"]
+
+[ext_resource type="Script" uid="uid://bg8u11csmnbdl" path="res://Scripts/main_menu.gd" id="1_main"]
+[ext_resource type="AudioStream" uid="uid://cddqr3mu131ic" path="res://Assets/ReValue Menu BGM.mp3" id="2_48xlc"]
+
+[node name="MainMenu" type="Node2D" unique_id=798155698]
+script = ExtResource("1_main")
+
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=2058585647]
+stream = ExtResource("2_48xlc")
+autoplay = true
+parameters/looping = true

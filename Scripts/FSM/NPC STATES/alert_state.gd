@@ -9,8 +9,12 @@ func enter():
 	player = null          # reset cleanly
 	_find_player()
 	if animated_sprite_2D:
-		animated_sprite_2D.play("alert")
-		
+		animated_sprite_2D.stop()
+		if animated_sprite_2D.sprite_frames and animated_sprite_2D.sprite_frames.has_animation("alert"):
+			animated_sprite_2D.play("alert")
+		else:
+			animated_sprite_2D.play("idle")
+
 func exit():
 	player = null  # ← clear the reference so state is clean on re-entry
 

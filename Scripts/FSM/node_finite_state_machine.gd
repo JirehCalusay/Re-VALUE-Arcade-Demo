@@ -68,3 +68,11 @@ func transition_to(state_name: String, arg = null):
 	new_state.enter()
 	current_node_state = new_state
 	current_state_name = state_name
+
+func disable() -> void:
+	if current_node_state:
+		current_node_state.exit()
+		current_node_state = null
+	current_state_name = ""
+	set_process(false)
+	set_physics_process(false)

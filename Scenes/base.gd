@@ -34,6 +34,6 @@ func _on_spawn_enemy(value: int, position: Vector2) -> void:
 
 	# Count it toward the current wave
 	spawn_manager.enemies_alive += 1
-	enemy.tree_exited.connect(spawn_manager._on_enemy_died)
+	enemy.tree_exited.connect(spawn_manager._on_enemy_removed.bind(enemy))
 
 	print("Spawned merged enemy — value: ", value, " | enemies alive: ", spawn_manager.enemies_alive)
