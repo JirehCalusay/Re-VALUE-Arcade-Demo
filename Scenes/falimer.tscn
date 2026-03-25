@@ -1,0 +1,121 @@
+[gd_scene load_steps=17 format=3 uid="uid://bfcqglqo042a5"]
+
+[ext_resource type="Texture2D" uid="uid://bo0q0wo2r0gee" path="res://Assets/falimer_idle spritesheet.png" id="1_a0q21"]
+[ext_resource type="Script" uid="uid://b8yradhpuvo0e" path="res://Scripts/gravity.gd" id="2_vq5fk"]
+[ext_resource type="Script" uid="uid://8ufjli0x8je7" path="res://Scripts/FSM/npc_state_machine_controller.gd" id="3_oegxp"]
+[ext_resource type="Script" uid="uid://cg03a663jjsh6" path="res://Scenes/npc_state_machine.gd" id="4_oegxp"]
+[ext_resource type="Script" uid="uid://cicg0x004j85t" path="res://Scripts/FSM/NPC STATES/idle_state_npc.gd" id="5_oegxp"]
+[ext_resource type="Script" uid="uid://ct6ln2cjivpjn" path="res://Scripts/FSM/NPC STATES/alert_state.gd" id="6_ilpkr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vq5fk"]
+atlas = ExtResource("1_a0q21")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62jcr"]
+atlas = ExtResource("1_a0q21")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kn2v2"]
+atlas = ExtResource("1_a0q21")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6847"]
+atlas = ExtResource("1_a0q21")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oegxp"]
+atlas = ExtResource("1_a0q21")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilpkr"]
+atlas = ExtResource("1_a0q21")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_new11"]
+atlas = ExtResource("1_a0q21")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5dfh4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vq5fk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62jcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kn2v2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6847")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oegxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ilpkr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_new11")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r0thk"]
+radius = 14.0
+height = 94.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oegxp"]
+radius = 94.0
+
+[node name="Falimer" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -64)
+sprite_frames = SubResource("SpriteFrames_5dfh4")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.6700342
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -47)
+shape = SubResource("CapsuleShape2D_r0thk")
+
+[node name="Gravity" type="Node" parent="." node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D")]
+script = ExtResource("2_vq5fk")
+character_body_2D = NodePath("..")
+animated_sprite_2D = NodePath("../AnimatedSprite2D")
+
+[node name="StateMachineController" type="Node" parent="." node_paths=PackedStringArray("entity_state_machine") groups=["Player"]]
+script = ExtResource("3_oegxp")
+entity_state_machine = NodePath("../NPCStateMachine")
+
+[node name="NPCStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_oegxp")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="NPCStateMachine" node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D")]
+script = ExtResource("5_oegxp")
+character_body_2D = NodePath("../..")
+animated_sprite_2D = NodePath("../../AnimatedSprite2D")
+
+[node name="Alert" type="Node" parent="NPCStateMachine" node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D")]
+script = ExtResource("6_ilpkr")
+character_body_2D = NodePath("../..")
+animated_sprite_2D = NodePath("../../AnimatedSprite2D")
+
+[node name="VisionArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
+position = Vector2(0, -47)
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CircleShape2D_oegxp")
+debug_color = Color(0.36411816, 0.6099048, 0.2737328, 0.41960785)
+
+[connection signal="body_entered" from="VisionArea" to="StateMachineController" method="_on_vision_area_body_entered"]
+[connection signal="body_exited" from="VisionArea" to="StateMachineController" method="_on_vision_area_body_exited"]

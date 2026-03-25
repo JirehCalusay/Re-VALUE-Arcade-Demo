@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8qv0e5v7v8rg"]
+
+[ext_resource type="Texture2D" uid="uid://bt1t87ut2wmv6" path="res://Assets/layers/parallax-demon-woods-bg.png" id="1_tumq0"]
+[ext_resource type="Texture2D" uid="uid://cu4koevelg7u6" path="res://Assets/layers/parallax-demon-woods-far-trees.png" id="2_k5f4k"]
+[ext_resource type="Texture2D" uid="uid://bi74m7622broh" path="res://Assets/layers/parallax-demon-woods-mid-trees.png" id="3_6phgx"]
+[ext_resource type="Texture2D" uid="uid://dlhnwjc13ojy3" path="res://Assets/layers/parallax-demon-woods-close-trees.png" id="4_81xng"]
+
+[node name="Level" type="Node2D"]
+
+[node name="bg1" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="bg1"]
+position = Vector2(-1600, -1107)
+scale = Vector2(10.237501, 11.389706)
+texture = ExtResource("1_tumq0")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 480, 272)
+
+[node name="bg2" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="bg2"]
+position = Vector2(-8.000015, -2.0000038)
+scale = Vector2(2.0287163, 1.9632355)
+texture = ExtResource("2_k5f4k")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 592, 272)
+
+[node name="bg3" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.4, 0.4)
+
+[node name="Sprite2D" type="Sprite2D" parent="bg3"]
+position = Vector2(4.9999847, 16)
+scale = Vector2(1.8529412, 1.8529413)
+texture = ExtResource("3_6phgx")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 592, 272)
+
+[node name="bg4" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.3, 0.3)
+
+[node name="Sprite2D" type="Sprite2D" parent="bg4"]
+position = Vector2(4.411789, -5)
+scale = Vector2(2.0220585, 2.0220587)
+texture = ExtResource("4_81xng")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 592, 272)
