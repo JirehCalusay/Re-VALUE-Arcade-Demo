@@ -20,11 +20,14 @@ func _ready() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame  # two frames ensures layout is fully calculated
 	_align_icon_container()
+	icon_container.add_theme_constant_override("separation", 16)
 
 func _align_icon_container() -> void:
 	var slot_rect = slot_graphic.get_global_rect()
-	icon_container.global_position = slot_rect.position
-	icon_container.size = slot_rect.size
+	var h_padding = 156.0
+	var v_padding = 10.0
+	icon_container.global_position = slot_rect.position + Vector2(h_padding / 2, v_padding / 2)
+	icon_container.size = slot_rect.size - Vector2(h_padding, v_padding)
 	icon_container.clip_contents = true
 
 func _apply_font() -> void:

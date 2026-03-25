@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bfcqglqo042a5"]
+[gd_scene format=3 uid="uid://bfcqglqo042a5"]
 
 [ext_resource type="Texture2D" uid="uid://bo0q0wo2r0gee" path="res://Assets/falimer_idle spritesheet.png" id="1_a0q21"]
 [ext_resource type="Script" uid="uid://b8yradhpuvo0e" path="res://Scripts/gravity.gd" id="2_vq5fk"]
@@ -71,47 +71,47 @@ height = 94.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_oegxp"]
 radius = 94.0
 
-[node name="Falimer" type="CharacterBody2D"]
+[node name="Falimer" type="CharacterBody2D" unique_id=162777915]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=539979356]
 position = Vector2(0, -64)
 sprite_frames = SubResource("SpriteFrames_5dfh4")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.6700342
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1549643780]
 position = Vector2(0, -47)
 shape = SubResource("CapsuleShape2D_r0thk")
 
-[node name="Gravity" type="Node" parent="." node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D")]
+[node name="Gravity" type="Node" parent="." unique_id=33229096 node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D")]
 script = ExtResource("2_vq5fk")
 character_body_2D = NodePath("..")
 animated_sprite_2D = NodePath("../AnimatedSprite2D")
 
-[node name="StateMachineController" type="Node" parent="." node_paths=PackedStringArray("entity_state_machine") groups=["Player"]]
+[node name="StateMachineController" type="Node" parent="." unique_id=460343385 node_paths=PackedStringArray("entity_state_machine") groups=["Player"]]
 script = ExtResource("3_oegxp")
 entity_state_machine = NodePath("../NPCStateMachine")
 
-[node name="NPCStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="NPCStateMachine" type="Node" parent="." unique_id=1210173776 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_oegxp")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="NPCStateMachine" node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D")]
+[node name="Idle" type="Node" parent="NPCStateMachine" unique_id=997318899 node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D")]
 script = ExtResource("5_oegxp")
 character_body_2D = NodePath("../..")
 animated_sprite_2D = NodePath("../../AnimatedSprite2D")
 
-[node name="Alert" type="Node" parent="NPCStateMachine" node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D")]
+[node name="Alert" type="Node" parent="NPCStateMachine" unique_id=1838696259 node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D")]
 script = ExtResource("6_ilpkr")
 character_body_2D = NodePath("../..")
 animated_sprite_2D = NodePath("../../AnimatedSprite2D")
 
-[node name="VisionArea" type="Area2D" parent="."]
+[node name="VisionArea" type="Area2D" parent="." unique_id=604622753]
 collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea" unique_id=841195359]
 position = Vector2(0, -47)
 scale = Vector2(1.5, 1.5)
 shape = SubResource("CircleShape2D_oegxp")

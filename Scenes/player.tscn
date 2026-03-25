@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://bks0wuol0jbi6"]
+[gd_scene format=3 uid="uid://bks0wuol0jbi6"]
 
 [ext_resource type="Texture2D" uid="uid://bv16fxgwa64jh" path="res://Assets/individual_sheets/male_hero-fall.png" id="1_f1ek2"]
 [ext_resource type="Texture2D" uid="uid://crmo2dcb7c2iv" path="res://Assets/individual_sheets/male_hero-dash.png" id="1_gymyn"]
@@ -922,55 +922,55 @@ _data = {
 &"capture": SubResource("Animation_f1uaf")
 }
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1024678031 groups=["Player"]]
 collision_layer = 2
 
-[node name="Pivot" type="Node2D" parent="."]
+[node name="Pivot" type="Node2D" parent="." unique_id=1679832469]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Pivot"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Pivot" unique_id=214741129]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_6t5aa")
 animation = &"attack1"
 
-[node name="HitBox" parent="Pivot/AnimatedSprite2D" instance=ExtResource("12_bi64h")]
+[node name="HitBox" parent="Pivot/AnimatedSprite2D" unique_id=1993760600 instance=ExtResource("12_bi64h")]
 position = Vector2(0, 16)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/AnimatedSprite2D/HitBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/AnimatedSprite2D/HitBox" unique_id=491286917]
 position = Vector2(33, -19)
 shape = SubResource("RectangleShape2D_2ijsl")
 disabled = true
 debug_color = Color(0.9932578, 0, 0.24698716, 0.41960785)
 
-[node name="Playerfeet" type="CollisionShape2D" parent="."]
+[node name="Playerfeet" type="CollisionShape2D" parent="." unique_id=256360516]
 position = Vector2(-0.5, -15.724202)
 shape = SubResource("RectangleShape2D_vgqql")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_node_state")]
+[node name="StateMachine" type="Node" parent="." unique_id=275497477 node_paths=PackedStringArray("initial_node_state")]
 script = ExtResource("3_6t5aa")
 initial_node_state = NodePath("Idle")
 MAX_JUMP_COUNT = 2
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D", "pivot")]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=490526546 node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D", "pivot")]
 script = ExtResource("4_vgqql")
 character_body_2D = NodePath("../..")
 animated_sprite_2D = NodePath("../../Pivot/AnimatedSprite2D")
 pivot = NodePath("../../Pivot")
 
-[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D", "pivot", "animation_helper")]
+[node name="Fall" type="Node" parent="StateMachine" unique_id=1362894519 node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D", "pivot", "animation_helper")]
 script = ExtResource("5_x3wgy")
 character_body_2D = NodePath("../..")
 animated_sprite_2D = NodePath("../../Pivot/AnimatedSprite2D")
 pivot = NodePath("../../Pivot")
 animation_helper = NodePath("../../AnimationTransition")
 
-[node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D", "pivot", "animation_helper")]
+[node name="Run" type="Node" parent="StateMachine" unique_id=471398401 node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D", "pivot", "animation_helper")]
 script = ExtResource("6_x3wgy")
 character_body_2D = NodePath("../..")
 animated_sprite_2D = NodePath("../../Pivot/AnimatedSprite2D")
 pivot = NodePath("../../Pivot")
 animation_helper = NodePath("../../AnimationTransition")
 
-[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D", "pivot")]
+[node name="Jump" type="Node" parent="StateMachine" unique_id=1688162863 node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D", "pivot")]
 script = ExtResource("9_tx1dd")
 character_body_2D = NodePath("../..")
 animated_sprite_2D = NodePath("../../Pivot/AnimatedSprite2D")
@@ -978,28 +978,28 @@ pivot = NodePath("../../Pivot")
 JUMP_HORIZONTAL_SPEED = 800
 MAX_JUMP_HORIZONTAL_SPEED = 200
 
-[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D")]
+[node name="Dash" type="Node" parent="StateMachine" unique_id=983763087 node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D")]
 script = ExtResource("10_tx1dd")
 character_body_2D = NodePath("../..")
 animated_sprite_2D = NodePath("../../Pivot/AnimatedSprite2D")
 DASH_SPEED = 800.0
 
-[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("character_body_2d", "animation_player")]
+[node name="Attack" type="Node" parent="StateMachine" unique_id=1125767271 node_paths=PackedStringArray("character_body_2d", "animation_player")]
 script = ExtResource("15_igrcy")
 character_body_2d = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
 
-[node name="AttackData" type="Node" parent="StateMachine/Attack"]
+[node name="AttackData" type="Node" parent="StateMachine/Attack" unique_id=143752179]
 script = ExtResource("19_wpjfl")
 
-[node name="Run2Turn" type="Node" parent="StateMachine" node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D", "pivot", "animation_helper")]
+[node name="Run2Turn" type="Node" parent="StateMachine" unique_id=587911737 node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D", "pivot", "animation_helper")]
 script = ExtResource("14_h4iuc")
 character_body_2D = NodePath("../..")
 animated_sprite_2D = NodePath("../../Pivot/AnimatedSprite2D")
 pivot = NodePath("../../Pivot")
 animation_helper = NodePath("../../AnimationTransition")
 
-[node name="Run2Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D", "animation_helper")]
+[node name="Run2Idle" type="Node" parent="StateMachine" unique_id=120142513 node_paths=PackedStringArray("character_body_2D", "animated_sprite_2D", "animation_helper")]
 script = ExtResource("16_igrcy")
 character_body_2D = NodePath("../..")
 animated_sprite_2D = NodePath("../../Pivot/AnimatedSprite2D")
@@ -1007,11 +1007,9 @@ animation_helper = NodePath("../../AnimationTransition")
 TRANSITION_DURATION = 0.3
 INERTIA_SPEED = 750
 
-[node name="AnimationTransition" type="Node" parent="." node_paths=PackedStringArray("animated_sprite_2D")]
+[node name="AnimationTransition" type="Node" parent="." unique_id=602492890 node_paths=PackedStringArray("animated_sprite_2D")]
 script = ExtResource("13_ukyrk")
 animated_sprite_2D = NodePath("../Pivot/AnimatedSprite2D")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_fs7ks")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1420324786]
+libraries/ = SubResource("AnimationLibrary_fs7ks")

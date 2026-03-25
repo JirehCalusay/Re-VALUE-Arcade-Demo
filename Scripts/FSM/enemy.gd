@@ -133,12 +133,8 @@ func _on_hurt_box_stun() -> void:
 func _on_hurt_box_died() -> void:
 	queue_free()
 	
-func _on_hurt_box_captured(hit_source: Vector2) -> void:
-	# try to add to inventory — if slots full, do nothing
-	var success = GameData.try_capture(enemy_value, current_hp)
-	if success:
-		queue_free()
-	# if failed, enemy stays alive
+func _on_hurt_box_captured(_hit_source: Vector2) -> void:
+	GameData.register_capture_candidate(self)
 
 # ── Split Logic ──────────────────────────────────────────────
 func _trigger_split() -> void:

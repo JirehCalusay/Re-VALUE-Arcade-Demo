@@ -49,6 +49,6 @@ static func attack_damage() -> bool:
 static func attack_capture() -> bool:
 	return Input.is_action_just_pressed("capture")  # J key
 	
-static func merge_release() -> bool:
-	return Input.is_action_just_pressed("merge-release")  # J key
+static func release() -> bool:
+	return Input.is_action_just_pressed("release")  # E key
 	

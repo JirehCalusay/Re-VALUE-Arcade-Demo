@@ -17,18 +17,17 @@ signal wave_cleared(wave_number: int)
 
 func _ready() -> void:
 	start_next_wave()
+	var result = EquationGenerator.generate()
+	GameData.global_target_value = result["answer"]
+	GameData.current_equation = result["equation"]
+	GameData.target_changed.emit(result["answer"], result["equation"])
+
 
 func start_next_wave() -> void:
 	current_wave += 1
 	print("Wave ", current_wave, " started!")
 
 	# generate new global target for this wave
-	var result = EquationGenerator.generate()
-	GameData.global_target_value = result["answer"]
-	GameData.current_equation = result["equation"]
-	GameData.target_changed.emit(result["answer"], result["equation"])
-
-	print("New equation: ", result["equation"])
 
 	wave_started.emit(current_wave)
 	_spawn_wave()

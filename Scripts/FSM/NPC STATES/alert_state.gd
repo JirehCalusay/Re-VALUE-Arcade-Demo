@@ -6,15 +6,16 @@ extends EntityState
 var player: Node2D = null
 
 func enter():
+	player = null          # reset cleanly
 	_find_player()
 	if animated_sprite_2D:
 		animated_sprite_2D.play("alert")
-
+		
 func exit():
-	pass
+	player = null  # ← clear the reference so state is clean on re-entry
 
 func on_process(_delta):
-	if player:
+	if player and is_instance_valid(player):  # ← guard against freed nodes
 		_face_player()
 
 func on_physics_process(_delta):
@@ -27,10 +28,11 @@ func _find_player():
 		player = players[0]
 
 func _face_player():
-	if not player:
+	if not is_instance_valid(player):
+		player = null
 		return
-
 	var dir = player.global_position.x - character_body_2D.global_position.x
-	if dir != 0:
-		animated_sprite_2D.flip_h = dir < 0
-		
+	if dir > 0:
+		animated_sprite_2D.flip_h = false
+	elif dir < 0:
+		animated_sprite_2D.flip_h = true
