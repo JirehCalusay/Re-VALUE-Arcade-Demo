@@ -9,6 +9,7 @@ const BG4  := preload("res://Assets/Enjl-Starry Space Background/background_4.pn
 var _scores_vbox: VBoxContainer
 
 func _ready() -> void:
+	SceneTransition.fade_in()
 	_build_background()
 	_build_ui()
 
@@ -208,7 +209,7 @@ func _on_new_game() -> void:
 	GameData.turnover_count = 0
 	GameData.difficulty_tier = 0
 	GameData.captured_enemies.clear()
-	get_tree().change_scene_to_file("res://Scenes/base.tscn")
+	SceneTransition.change_scene("res://Scenes/base.tscn")
 
 func _on_exit() -> void:
 	get_tree().quit()

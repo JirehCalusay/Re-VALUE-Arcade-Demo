@@ -6,6 +6,7 @@ extends Node2D
 @onready var player: Node2D   = $Player          # adjust path if nested differently
 
 func _ready() -> void:
+	SceneTransition.fade_in()
 	# ── Camera resize ───────────────────────────────────────────
 	var cam = get_node(camera_node_path) as Camera2D
 	if cam:

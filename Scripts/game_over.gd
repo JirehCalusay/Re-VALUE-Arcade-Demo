@@ -184,4 +184,4 @@ func _go_to_menu() -> void:
 	GameData.turnover_count = 0
 	GameData.difficulty_tier = 0
 	GameData.captured_enemies.clear()
-	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+	SceneTransition.change_scene("res://Scenes/main_menu.tscn")

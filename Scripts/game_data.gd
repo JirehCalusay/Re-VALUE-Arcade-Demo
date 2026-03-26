@@ -13,6 +13,8 @@ signal target_changed(new_target: int, equation: String)
 signal inventory_changed()
 signal spawn_enemy(value: int, position: Vector2)  # listened to by the level to spawn the enemy node
 signal turnover_success(score_bonus: int)  # emitted when a correct turnover happens
+signal turnover_failed()                      # wrong total value
+signal turnover_empty()                       # inventory was empty when Q pressed
 
 # ── Turnover ──────────────────────────────────────────────────
 var turnover_count: int = 0
@@ -106,6 +108,7 @@ func release_last() -> bool:
 func try_turnover(time_remaining: float) -> bool:
 	if captured_enemies.is_empty():
 		print("Turnover failed — inventory empty")
+		turnover_empty.emit()
 		return false
 
 	var total: int = 0
@@ -116,6 +119,7 @@ func try_turnover(time_remaining: float) -> bool:
 
 	if total != global_target_value:
 		print("Turnover failed — value mismatch")
+		turnover_failed.emit()
 		return false
 
 	# Success
